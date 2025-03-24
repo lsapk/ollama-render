@@ -8,5 +8,4 @@ RUN apt update && apt install -y curl && \
 # Expose le port 11434 (par défaut pour Ollama)
 EXPOSE 11434
 
-# Lance Ollama en mode serveur
-CMD ["/usr/local/bin/ollama", "serve"]
+CMD ["/usr/local/bin/ollama", "serve", "--host", "0.0.0.0"]
