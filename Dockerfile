@@ -1,14 +1,12 @@
-# Utilisation d'une image de base
-FROM python:3.10
+# Utilise une image Linux légère
+FROM debian:bookworm-slim
 
-# Définition du répertoire de travail
-WORKDIR /app
+# Installe Ollama
+RUN apt update && apt install -y curl && \
+    curl -fsSL https://ollama.com/install.sh | sh
 
-# Copie des fichiers
-COPY . .
+# Expose le port 11434 (par défaut pour Ollama)
+EXPOSE 11434
 
-# Installation des dépendances
-RUN pip install -r requirements.txt
-
-# Exécution de la commande de démarrage
-CMD ["bash", "start.sh"]
+# Lance Ollama en mode serveur
+CMD ["/usr/local/bin/ollama", "serve"]
