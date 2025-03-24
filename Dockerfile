@@ -1,11 +1,20 @@
-# Utilise une image Linux légère
-FROM debian:bookworm-slim
+# Utiliser une image de base légère
+FROM ubuntu:latest
 
-# Installe Ollama
-RUN apt update && apt install -y curl && \
-    curl -fsSL https://ollama.com/install.sh | sh
+# Mettre à jour les paquets et installer les dépendances
+RUN apt-get update && apt-get install -y \
+    curl \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
-# Expose le port 11434 (par défaut pour Ollama)
+# Télécharger et installer Ollama
+RUN curl -fsSL https://ollama.com/install.sh | sh
+
+# Définir la variable d'environnement pour écouter sur toutes les IPs
+ENV OLLAMA_HOST=0.0.0.0:11434
+
+# Exposer le port 11434
 EXPOSE 11434
 
-CMD ["/usr/local/bin/ollama", "serve", "--host", "0.0.0.0"]
+# Démarrer Ollama
+CMD ["/usr/local/bin/ollama", "serve"]
