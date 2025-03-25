@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
 # Télécharger et installer Ollama
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
+# Télécharger le modèle Mistral directement après l'installation d'Ollama
+RUN /usr/local/bin/ollama pull mistral
+
 # Définir la variable d'environnement pour écouter sur toutes les IPs
 ENV OLLAMA_HOST=0.0.0.0:11434
 
@@ -18,3 +21,7 @@ EXPOSE 11434
 
 # Démarrer Ollama
 CMD ["/usr/local/bin/ollama", "serve"]
+
+
+
+
