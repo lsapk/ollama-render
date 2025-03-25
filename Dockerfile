@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
 # Démarrer Ollama en arrière-plan et attendre qu'il soit prêt avant de télécharger Mistral
-RUN /usr/local/bin/ollama serve & sleep 5 && /usr/local/bin/ollama pull mistral
+RUN /usr/local/bin/ollama serve & sleep 20 && /usr/local/bin/ollama pull mistral
 
 # Définir la variable d'environnement pour écouter sur toutes les IPs
 ENV OLLAMA_HOST=0.0.0.0:11434
